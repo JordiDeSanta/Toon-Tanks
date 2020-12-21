@@ -3,21 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BasePawn.h"
-#include "Tank.generated.h"
-
-class UCapsuleComponent;
-class UStaticMeshComponent;
-class USceneComponent;
+#include "GameFramework/Pawn.h"
+#include "BasePawn.generated.h"
 
 UCLASS()
-class TOONTANKS_API ATank : public ABasePawn
+class TOONTANKS_API ABasePawn : public APawn
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
-	ATank();
+	ABasePawn();
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,8 +26,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Necessary components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
-		class USpringArmComponent* SpringArm;
+		class UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
-		class UCameraComponent* Camera;
+		class UStaticMeshComponent* BaseMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
+		class UStaticMeshComponent* TurretMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
+		class USceneComponent* ProjectileSpawnPoint;
 };
