@@ -31,6 +31,8 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Move();
+	Turn();
 }
 
 // Called to bind functionality to input
@@ -38,5 +40,34 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	check(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis("Move", this, &ATank::CalculateMoveInput);
+	PlayerInputComponent->BindAxis("Turn", this, &ATank::CalculateRotateInput);
 }
+
+//Movements
+void ATank::CalculateMoveInput(float Value)
+{
+	MoveDirection = FVector(Value * MoveSpeed * GetWorld()->DeltaTimeSeconds, 0, 0);
+}
+
+void ATank::CalculateRotateInput(float Value)
+{
+	float RotateAmount = Value * RotateSpeed * GetWorld()->DeltaTimeSeconds;
+	FRotator Rotation = FRotator(0, RotateAmount, 0);
+	RotationDirection = FQuat(Rotation);
+}
+
+void ATank::Move()
+{
+	AddActorLocalOffset(MoveDirection, true);
+}
+
+void ATank::Turn()
+{
+	AddActorLocalRotation(RotationDirection, true);
+}
+
+
 
