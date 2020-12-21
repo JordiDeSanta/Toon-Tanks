@@ -6,10 +6,6 @@
 #include "BasePawn.h"
 #include "Tank.generated.h"
 
-class UCapsuleComponent;
-class UStaticMeshComponent;
-class USceneComponent;
-
 UCLASS()
 class TOONTANKS_API ATank : public ABasePawn
 {

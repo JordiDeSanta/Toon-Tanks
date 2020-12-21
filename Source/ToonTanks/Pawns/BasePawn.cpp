@@ -20,7 +20,6 @@ ABasePawn::ABasePawn()
 
 	// Root and attachments
 	SetRootComponent(CapsuleComp);
-	BaseMesh->SetupAttachment(CapsuleComp);
 	TurretMesh->SetupAttachment(BaseMesh, TEXT("TurretSocket"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh, TEXT("ProjectileSocket"));
 }
