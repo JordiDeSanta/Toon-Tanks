@@ -5,6 +5,8 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneComponent.h"
+#include "Engine/World.h"
+#include "ToonTanks/Projectile.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -20,7 +22,7 @@ ABasePawn::ABasePawn()
 
 	// Root and attachments
 	SetRootComponent(CapsuleComp);
-	TurretMesh->SetupAttachment(BaseMesh, TEXT("TurretSocket"));
+	TurretMesh->SetupAttachment(BaseMesh);
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh, TEXT("ProjectileSocket"));
 }
 
@@ -43,5 +45,15 @@ void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void ABasePawn::Fire()
+{
+	auto ActiveProjectile = GetWorld()->SpawnActor<class AProjectile>(
+			ProjectileBlueprint,
+			ProjectileSpawnPoint->GetComponentTransform()
+		);
+
+	ActiveProjectile->LaunchProjectile(LaunchSpeed);
 }
 

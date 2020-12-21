@@ -26,13 +26,22 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Projectile
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+		TSubclassOf<class AProjectile> ProjectileBlueprint = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+		float LaunchSpeed = 4000.f;
+
+	void Fire();
+
 	// Necessary components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
 		class UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
 		class UStaticMeshComponent* BaseMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
-		class UStaticMeshComponent* TurretMesh;
+		UStaticMeshComponent* TurretMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
 		class USceneComponent* ProjectileSpawnPoint;
 };

@@ -24,6 +24,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	
 }
 
 // Called every frame
@@ -44,6 +45,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	PlayerInputComponent->BindAxis("Move", this, &ATank::CalculateMoveInput);
 	PlayerInputComponent->BindAxis("Turn", this, &ATank::CalculateRotateInput);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATank::Fire);
 }
 
 //Movements
@@ -68,6 +70,8 @@ void ATank::Turn()
 {
 	AddActorLocalRotation(RotationDirection, true);
 }
+
+
 
 
 
