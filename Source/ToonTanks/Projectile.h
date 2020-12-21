@@ -23,7 +23,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
 	void LaunchProjectile(float Speed);
+
+	void OnTimerExpire();
 
 	class UProjectileMovementComponent* ProjectileMovement = nullptr;
 
