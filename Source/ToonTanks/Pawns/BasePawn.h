@@ -35,6 +35,9 @@ public:
 
 	void Fire();
 
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+	float ReloadTime = 1.5;
+
 	// Necessary components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
 		class UCapsuleComponent* CapsuleComp;
@@ -44,4 +47,9 @@ public:
 		UStaticMeshComponent* TurretMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))
 		class USceneComponent* ProjectileSpawnPoint;
+
+private:
+	bool bCanShoot = true;
+
+	void Reload();
 };

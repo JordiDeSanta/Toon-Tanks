@@ -26,21 +26,22 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-protected:
+private:
 	// Movement
 	FVector MoveDirection;
 	FQuat RotationDirection;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-		float MoveSpeed = 100.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-		float RotateSpeed = 100.0f;
 
 	void CalculateMoveInput(float Value);
 	void CalculateRotateInput(float Value);
 
 	void Move();
 	void Turn();
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+		float MoveSpeed = 100.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+		float RotateSpeed = 100.0f;
 
 	// Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAcces = "true"))

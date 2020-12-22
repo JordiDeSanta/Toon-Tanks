@@ -49,11 +49,25 @@ void ABasePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ABasePawn::Fire()
 {
-	auto ActiveProjectile = GetWorld()->SpawnActor<class AProjectile>(
+	if (bCanShoot)
+	{
+		auto ActiveProjectile = GetWorld()->SpawnActor<class AProjectile>(
 			ProjectileBlueprint,
 			ProjectileSpawnPoint->GetComponentTransform()
-		);
+			);
 
-	ActiveProjectile->LaunchProjectile(LaunchSpeed);
+		ActiveProjectile->LaunchProjectile(LaunchSpeed);
+
+		bCanShoot = false;
+
+		// Timer to reload
+		FTimerHandle Timer;
+		GetWorld()->GetTimerManager().SetTimer(Timer, this, &ABasePawn::Reload, ReloadTime, false);
+	}
+}
+
+void ABasePawn::Reload()
+{
+	bCanShoot = true;
 }
 
