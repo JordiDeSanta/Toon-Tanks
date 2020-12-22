@@ -14,4 +14,7 @@ class TOONTANKS_API ATurret : public ABasePawn
 {
 	GENERATED_BODY()
 	
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 };
