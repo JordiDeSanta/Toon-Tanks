@@ -30,6 +30,10 @@ public:
 
 	void OnTimerExpire();
 
+	UPROPERTY(EditAnywhere, Category = "Damage")
+		float ProjectileDamage = 20.f;
+
+private:
 	class UProjectileMovementComponent* ProjectileMovement = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")

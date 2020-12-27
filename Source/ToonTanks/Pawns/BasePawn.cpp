@@ -7,6 +7,7 @@
 #include "Components/SceneComponent.h"
 #include "Engine/World.h"
 #include "ToonTanks/Projectile.h"
+#include "Math/UnrealMathUtility.h"
 
 // Sets default values
 ABasePawn::ABasePawn()
@@ -32,6 +33,7 @@ void ABasePawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	CurrentHealth = MaxHealth;
 }
 
 // Called every frame
@@ -70,5 +72,20 @@ void ABasePawn::Fire()
 void ABasePawn::Reload()
 {
 	bCanShoot = true;
+}
+
+
+float ABasePawn::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
+	int32 DamageToApply = FMath::Clamp<int32>(DamagePoints, 0, CurrentHealth);
+
+	CurrentHealth -= DamageToApply;
+	if (CurrentHealth <= 0)
+	{
+		OnDeath();
+	}
+
+	return DamageToApply;
 }
 

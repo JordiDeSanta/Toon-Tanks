@@ -5,6 +5,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 AProjectile::AProjectile()
@@ -49,6 +51,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ImpactBlast->Activate();
 	LaunchBlast->Deactivate();
 	CollisionMesh->DestroyComponent();
+
+
+	UGameplayStatics::ApplyDamage(
+		OtherActor,
+		ProjectileDamage,
+		GetInstigatorController(),
+		GetOwner(),
+		UDamageType::StaticClass()
+	);
 
 	// Timer to destroy the projectile
 	FTimerHandle Timer;
