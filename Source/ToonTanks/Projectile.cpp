@@ -6,6 +6,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Pawns/BasePawn.h"
 
 
 // Sets default values
@@ -51,7 +52,6 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	ImpactBlast->Activate();
 	LaunchBlast->Deactivate();
 	CollisionMesh->DestroyComponent();
-
 
 	UGameplayStatics::ApplyDamage(
 		OtherActor,
