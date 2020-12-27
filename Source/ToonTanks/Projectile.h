@@ -33,15 +33,22 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Damage")
 		float ProjectileDamage = 20.f;
 
+	// Sounds
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		class USoundWave* ShootInit = nullptr;
+	UPROPERTY(EditAnywhere, Category = "Sound")
+		USoundWave* ShootHit = nullptr;
+
 private:
 	class UProjectileMovementComponent* ProjectileMovement = nullptr;
 
+	// Mesh component
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		class UStaticMeshComponent* CollisionMesh = nullptr;
 
+	// Particle components
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		class UParticleSystemComponent* LaunchBlast = nullptr;
-
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 		UParticleSystemComponent* ImpactBlast = nullptr;
 };

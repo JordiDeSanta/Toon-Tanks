@@ -6,7 +6,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Pawns/BasePawn.h"
+#include "Sound/SoundWave.h"
 
 
 // Sets default values
@@ -36,6 +36,14 @@ void AProjectile::BeginPlay()
 	
 	// Setting hit option
 	CollisionMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	// Setting the sound effect of shoot
+	UGameplayStatics::SpawnSoundAtLocation(
+		this,
+		ShootInit,
+		GetActorLocation(),
+		GetActorRotation()
+	);
 }
 
 // Called every frame
@@ -53,11 +61,20 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	LaunchBlast->Deactivate();
 	CollisionMesh->DestroyComponent();
 
+	// Hit sound effect
+	UGameplayStatics::SpawnSoundAtLocation(
+		this,
+		ShootHit,
+		GetActorLocation(),
+		GetActorRotation()
+	);
+
+	// Damage config
 	UGameplayStatics::ApplyDamage(
 		OtherActor,
 		ProjectileDamage,
 		GetInstigatorController(),
-		GetOwner(),
+		this,
 		UDamageType::StaticClass()
 	);
 
