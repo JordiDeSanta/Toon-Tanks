@@ -37,6 +37,8 @@ private:
 	void Move();
 	void Turn();
 
+	class APlayerController* PlayerControllerRef = nullptr;
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 		float MoveSpeed = 100.0f;

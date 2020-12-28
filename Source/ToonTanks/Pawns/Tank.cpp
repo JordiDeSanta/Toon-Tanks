@@ -3,6 +3,7 @@
 #include "Tank.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/PlayerController.h"
 
 // Sets default values
 ATank::ATank()
@@ -24,7 +25,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	
+	PlayerControllerRef = GetWorld()->GetFirstPlayerController();
 }
 
 // Called every frame
@@ -32,8 +33,19 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Moving and rotating tank
 	Move();
 	Turn();
+
+	// Rotating turret
+	if (PlayerControllerRef)
+	{
+		FHitResult TraceHitResult;
+		PlayerControllerRef->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, TraceHitResult);
+		FVector HitLocation = TraceHitResult.ImpactPoint;
+
+		RotateTurret(HitLocation);
+	}
 }
 
 // Called to bind functionality to input

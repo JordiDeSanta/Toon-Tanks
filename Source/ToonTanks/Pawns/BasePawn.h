@@ -40,6 +40,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnDeath();
 
+	void RotateTurret(FVector LookAtTarget);
+
 	void Fire();
 
 	// Health
